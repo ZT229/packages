@@ -2,7 +2,7 @@ name: Update Branch with Upstream Changes
 
 on:
   schedule:
-    - cron: "0 2 * * *"  # 每天上午 02:00 触发
+    - cron: "0 2 * * *"  # 每天上午 02:00
   push:
     branches:
       - master  # 当你向 master 分支推送时触发
@@ -36,14 +36,12 @@ jobs:
         run: |
           git checkout self  # 替换为你的分支名称
           git merge upstream/master --no-commit || {
-            echo "合并过程中出现冲突，请手动解决。"
-            exit 1
+            echo "检测到合并冲突，开始处理冲突。"
+            git rm -r --cached .github || echo "无需删除"
+            git add -u
+            git commit -m "Resolve merge conflict by ignoring .github directory"
+            echo "冲突已解决，继续合并流程。"
           }
-          # 忽略 .github 目录的更改
-          git restore --staged .github
-          git checkout -- .github
-          # 如果有需要提交的更改
-          git commit -m "Merge upstream/master (exclude .github)" || echo "没有需要提交的更改。"
 
       - name: Push Changes
         run: |
