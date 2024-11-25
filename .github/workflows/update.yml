@@ -2,7 +2,7 @@ name: Update Branch with Upstream Changes
 
 on:
   schedule:
-    - cron: "0 2 * * *"  # 每天上午 02:00
+    - cron: "0 2 * * *"  # 每天上午 02:00 触发
   push:
     branches:
       - master  # 当你向 master 分支推送时触发
@@ -35,10 +35,21 @@ jobs:
       - name: Merge Upstream Changes into Your Branch
         run: |
           git checkout self  # 替换为你的新分支名称
-          git merge upstream/master || {
+          git merge upstream/master --no-commit || {
             echo "合并过程中出现冲突，请手动解决。"
             exit 1
           }
+          # 恢复本地的 .github/workflows 目录
+          git restore --staged .github/workflows
+          git checkout -- .github/workflows
+
+      - name: Commit Changes (if needed)
+        run: |
+          if git diff-index --quiet HEAD --; then
+            echo "没有需要提交的更改。"
+          else
+            git commit -m "Merge upstream/master (exclude .github/workflows)"
+          fi
 
       - name: Push Changes
         run: |
