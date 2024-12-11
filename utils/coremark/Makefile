@@ -38,7 +38,7 @@ endef
 
 define Package/coremark/config
 	config COREMARK_OPTIMIZE_O3
-		bool "Use all optimizations (-O3)"
+		bool "Use all optimizations (-Os)"
 		depends on PACKAGE_coremark
 		default y
 		help
@@ -59,8 +59,8 @@ define Package/coremark/config
 			Number of threads to run in parallel
 endef
 
-ifeq ($(CONFIG_COREMARK_OPTIMIZE_O3),y)
-	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -O3
+ifeq ($(CONFIG_COREMARK_OPTIMIZE_Os),y)
+	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -Os
 endif
 
 ifeq ($(CONFIG_COREMARK_ENABLE_MULTITHREADING),y)
