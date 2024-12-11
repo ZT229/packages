@@ -42,7 +42,7 @@ define Package/coremark/config
 		depends on PACKAGE_coremark
 		default y
 		help
-			This enables additional optmizations using the -O3 compilation flag.
+			This enables additional optmizations using the -Os compilation flag.
 
 	config COREMARK_ENABLE_MULTITHREADING
 		bool "Enable multithreading support"
