@@ -107,6 +107,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_V2RAY_API
     bool "Build with V2Ray API support"
+    default y
 
     config SING_BOX_BUILD_WIREGUARD
     bool "Build with WireGuard support"

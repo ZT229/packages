@@ -3,6 +3,6 @@ menu "Configuration"
 
 config DNSCRYPT_ENABLE_PLUGINS
 	bool "Enable plugin support (includes libldns and plugins, increases size by 125kB)"
-	default n
+	default y
 
 endmenu
