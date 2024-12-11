@@ -37,7 +37,7 @@ define Package/coremark/description
 endef
 
 define Package/coremark/config
-	config COREMARK_OPTIMIZE_O3
+	config COREMARK_OPTIMIZE_Os
 		bool "Use all optimizations (-Os)"
 		depends on PACKAGE_coremark
 		default y
