@@ -60,7 +60,7 @@ define Package/coremark/config
 endef
 
 ifeq ($(CONFIG_COREMARK_OPTIMIZE_Os),y)
-	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -Os
+	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -Os -pipe -funroll-loops -mcpu=cortex-a53
 endif
 
 ifeq ($(CONFIG_COREMARK_ENABLE_MULTITHREADING),y)
