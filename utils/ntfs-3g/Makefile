@@ -57,6 +57,7 @@ endef
 define Package/ntfs-3g/config
 config PACKAGE_NTFS-3G_USE_LIBFUSE
 	bool "use external FUSE library, selects package libfuse"
+	default y
 	depends on PACKAGE_ntfs-3g
 	help
 	Ntfs-3g by default uses a minimalized lite version of FUSE.
