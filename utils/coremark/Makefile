@@ -42,7 +42,7 @@ define Package/coremark/config
 		depends on PACKAGE_coremark
 		default y
 		help
-			This enables additional optmizations using the -Os compilation flag.
+			This enables additional optmizations using the -O3 compilation flag.
 
 	config COREMARK_ENABLE_MULTITHREADING
 		bool "Enable multithreading support"
@@ -54,13 +54,13 @@ define Package/coremark/config
 	config COREMARK_NUMBER_OF_THREADS
 		int "Number of threads"
 		depends on COREMARK_ENABLE_MULTITHREADING
-		default 16
+		default 8
 		help
 			Number of threads to run in parallel
 endef
 
 ifeq ($(CONFIG_COREMARK_OPTIMIZE_Os),y)
-	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -Os -pipe -funroll-loops -mcpu=cortex-a53
+	TARGET_CFLAGS := $(filter-out -O%,$(TARGET_CFLAGS)) -O3 -pipe -funroll-loops -march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53
 endif
 
 ifeq ($(CONFIG_COREMARK_ENABLE_MULTITHREADING),y)
@@ -82,13 +82,6 @@ define Package/coremark/install
 	$(INSTALL_BIN) ./coremark.sh $(1)/etc/
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./coremark $(1)/etc/uci-defaults/xxx-coremark
-endef
-
-define Package/coremark/postinst
-#!/bin/sh
-[ -n "$${IPKG_INSTROOT}" ] || sed -i '/coremark/d' /etc/crontabs/root
-[ -n "$${IPKG_INSTROOT}" ] || echo "0 4 * * * /etc/coremark.sh" >> /etc/crontabs/root
-[ -n "$${IPKG_INSTROOT}" ] || crontab /etc/crontabs/root
 endef
 
 $(eval $(call BuildPackage,coremark))
