@@ -17,8 +17,8 @@ start_service() {
 
 	local listen_addr log_maxbackups log_maxsize
 	config_get listen_addr "config" "listen_addr" "0.0.0.0:2023"
-	config_get log_maxbackups "config" "log_maxbackups" "1"
-	config_get log_maxsize "config" "log_maxsize" "5"
+	config_get log_maxbackups "config" "log_maxbackups" "0"
+	config_get log_maxsize "config" "log_maxsize" "0"
 
 	procd_open_instance "$CONF"
 	procd_set_param command "$PROG" run
