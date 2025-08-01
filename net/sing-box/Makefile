@@ -72,6 +72,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_DHCP
     bool "Build with DHCP support"
+    default y
 
     config SING_BOX_BUILD_ECH
     bool "Build with TLS ECH extension support"
@@ -83,6 +84,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_GRPC
     bool "Build with standard gPRC support"
+    default y
     help
       Standard gRPC has good compatibility but poor performance.
 
@@ -107,6 +109,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_V2RAY_API
     bool "Build with V2Ray API support"
+    default y
 
     config SING_BOX_BUILD_WIREGUARD
     bool "Build with WireGuard support"
